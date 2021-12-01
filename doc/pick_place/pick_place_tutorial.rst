@@ -1,5 +1,5 @@
-Pick and Place Tutorial
-============================
+Pick and Place
+==============
 
 In MoveIt, grasping is done using the MoveGroup interface. In order to grasp an object we need to create ``moveit_msgs::Grasp`` msg which will allow defining the various poses and postures involved in a grasping operation.
 Watch this video to see the output of this tutorial:
@@ -28,7 +28,7 @@ You should see something similar to the video at the beginning of this tutorial.
 
 Understanding ``moveit_msgs::Grasp``
 ------------------------------------
-For complete documentation refer to `moveit_msgs/Grasp.msg. <http://docs.ros.org/melodic/api/moveit_msgs/html/msg/Grasp.html>`_
+For complete documentation refer to `moveit_msgs/Grasp.msg. <http://docs.ros.org/noetic/api/moveit_msgs/html/msg/Grasp.html>`_
 
 The relevant fields of the message are:-
 

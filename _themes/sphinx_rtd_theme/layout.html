@@ -138,7 +138,7 @@
            <div itemprop="articleBody">
              <!-- <div class="admonition note">  -->
                <!-- <p class="first admonition-title">Code Used in this Tutorial Available</p>  -->
-               <!-- <p class="last">Code can be found at <a href = "https://github.com/ros-planning/moveit_tutorials">moveit_tutorials repository</a> in doc folder. Use melodic-devel branch.</p> -->
+               <!-- <p class="last">Code can be found at <a href = "https://github.com/ros-planning/moveit_tutorials">moveit_tutorials repository</a> in doc folder. Use master branch.</p> -->
              <!-- </div>  -->
             {% block body %}{% endblock %}
             {% if display_github %}
@@ -154,12 +154,9 @@
       </div>
 
     </section>
-
   </div>
-  {% include "versions.html" %}
 
   {% if not embedded %}
-
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'{{ url_root }}',

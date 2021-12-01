@@ -3,7 +3,7 @@ MoveIt Quickstart in RViz
 .. image:: rviz_plugin_head.png
    :width: 700px
 
-The quickest way to get started using MoveIt is through its RViz plugin. Rviz is the primary visualizer in ROS and an incredibly useful tool for debugging robotics. The MoveIt Rviz plugin allows you to setup virtual environments (scenes), create start and goal states for the robot interactively, test various motion planners, and visualize the output.
+This tutorial will quickly get you motion planning using MoveIt via RViz and the MoveIt plugin. Rviz is the primary visualizer in ROS and an incredibly useful tool for debugging robotics. The MoveIt Rviz plugin allows you to setup virtual environments (scenes), create start and goal states for the robot interactively, test various motion planners, and visualize the output. Let's go!
 
 Getting Started
 ---------------
@@ -52,12 +52,13 @@ Step 1: Launch the Demo and Configure the Plugin
 
   * Make sure the **Robot Description** field is set to ``robot_description``.
 
-  * Make sure the **Planning Scene Topic** field is set to ``/planning_scene``.
+  * Make sure the **Planning Scene Topic** field is set to ``move_group/monitored_planning_scene``.
     Click on topic name to expose topic-name drop-down.
 
-  * In **Planning Request**, change the **Planning Group** to ``panda_arm``.
+  * Make sure the **Trajectory Topic** under **Planned Path** is set to ``/move_group/display_planned_path``.
 
-  * In **Planned Path**, change the **Trajectory Topic** to ``/move_group/display_planned_path``.
+  * In **Planning Request**, change the **Planning Group** to ``panda_arm``. You can also see this in the MotionPlanning panel in the bottom left.
+
 
 .. image:: rviz_plugin_start.png
    :width: 700px
@@ -67,7 +68,7 @@ Step 2: Play with the Visualized Robots
 ---------------------------------------
 There are four different overlapping visualizations:
 
-#. The robot's configuration in the ``/planning scene`` planning environment (active by default).
+#. The robot's configuration in the ``move_group/monitored_planning_scene`` planning environment (active by default).
 
 #. The planned path for the robot (active by default).
 
@@ -129,6 +130,17 @@ Note what happens when you try to move an end-effector out of its reachable work
 .. image:: rviz_plugin_invalid.png
    :width: 700px
 
+Moving Joints or in Null Space
+++++++++++++++++++++++++++++++
+You can use the **Joints** tab to move single joints and the redundant joints of 7-DOF robots. Try moving the "null space exploration" slider as shown in the animation below.
+
+.. raw:: html
+
+    <video width="700px" nocontrols="true" autoplay="true" loop="true">
+        <source src="../../_static/rviz_joints_nullspace.webm" type="video/webm">
+        The joints moving while the end effector stays still
+    </video>
+
 Step 4: Use Motion Planning with the Panda
 -------------------------------------------
 
@@ -149,10 +161,23 @@ Step 4: Use Motion Planning with the Panda
 .. image:: rviz_plugin_planned_path.png
    :width: 700px
 
+Choosing Specific Start/Goal States
++++++++++++++++++++++++++++++++++++
+
+The ``Planning`` tab lets you choose start and goal states for a planning request for your robot from these options:
+  - The current state
+  - The previous state
+  - A randomly sampled state
+  - Or a named state of the selected planning group, as defined in the ``.srdf`` file of the robot.
+
+``Previous`` refers to the start state of the previous planning attempt. Thus, selecting ``previous`` as the goal state after execution of a planned motion path allows you to move back to the previous robot pose easily. As, both the ``current`` and the ``previous`` start/goal states are automatically updated after execution, you can easily move back and forth between two states as illustrated in the animation below.
+
+.. image:: rviz_plugin_access_previous_pose.gif
+
 Introspecting Trajectory Waypoints
 ++++++++++++++++++++++++++++++++++
 
-You can visually introspect trajectory point by point on RViz.
+You can visually introspect trajectories point by point in RViz.
 
 * From "`Panels`" menu, select "`MotionPlanning - Slider`". You'll see a new Slider panel on RViz.
 
@@ -165,6 +190,27 @@ NOTE: Once you placed your EEF to a new goal, be sure to run `Plan` before runni
 .. image:: rviz_plugin_slider.png
    :width: 700px
 
+Plan Cartesian motions
+++++++++++++++++++++++
+
+If the "Use Cartesian Path" checkbox is activated, the robot will attempt to move the end effector linearly in cartesian space.
+
+.. image:: rviz_plan_free.png
+   :width: 700px
+
+.. image:: rviz_plan_cartesian.png
+   :width: 700px
+
+
+Executing Trajectories, Adjusting Speed
++++++++++++++++++++++++++++++++++++++++
+
+Clicking "Plan & Execute" or "Execute" after a successful plan will send the trajectory to the robot - in this tutorial, since you used `demo.launch`, the robot is only simulated.
+
+Initially, the default velocity and acceleration are scaled to 10% (`0.1`) of the robot's maximum. You can change these scaling factors in the Planning tab shown below, or change these default values in the `moveit_config` of your robot (in `joint_limits.yaml`).
+
+.. image:: rviz_plugin_collision_aware_ik_checkbox.png
+   :width: 700px
 
 Next Steps
 ----------
@@ -175,7 +221,7 @@ Many of the tutorials use ``moveit_visual_tools`` to step through a demo. Before
 
 From "`Panels`" menu, select "`RvizVisualToolsGui`". You'll see the new panel added to RViz.
 
-.. image:: rviz_pannels.png
+.. image:: rviz_panels.png
    :width: 700px
 
 Saving Your Configuration
@@ -184,8 +230,10 @@ RViz enables you to save your configuration under ``File->Save Config``. You sho
 
 Next Tutorials
 ++++++++++++++
-* To Create your own ``robot_moveit_config`` package look at the `MoveIt Setup Assistant tutorial. <../setup_assistant/setup_assistant_tutorial.html>`_
+* To easily control your robot using C++, check out the `Move Group C++ Interface <../move_group_interface/move_group_interface_tutorial.html>`_
 
-* To use Move Group to control your robot using C++ check out the `Move Group Interface <../move_group_interface/move_group_interface_tutorial.html>`_
+* To easily control your robot using Python, check out the `Move Group Python Interface <../move_group_python_interface/move_group_python_interface_tutorial.html>`_
 
-* To use Move Group to control your robot using Python check out the `Move Group Python Interface <../move_group_python_interface/move_group_python_interface_tutorial.html>`_
+* To create your own ``*_moveit_config`` package, check out the `Setup Assistant <../setup_assistant/setup_assistant_tutorial.html>`_
+
+* Save and restore robot states from a database or from disk using `warehouse_ros <../persistent_scenes_and_states/persistent_scenes_and_states.html>`_

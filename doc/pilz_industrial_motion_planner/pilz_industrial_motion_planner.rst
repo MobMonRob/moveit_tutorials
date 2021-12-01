@@ -326,7 +326,7 @@ the trajectory it would have taken without blending.
    :alt: blend figure
 
 Implementation details are available `as pdf
-<https://github.com/ros-planning/moveit/blob/melodic-devel/moveit_planners/pilz_industrial_motion_planner/doc/MotionBlendAlgorithmDescription.pdf>`_.
+<https://github.com/ros-planning/moveit/blob/master/moveit_planners/pilz_industrial_motion_planner/doc/MotionBlendAlgorithmDescription.pdf>`_.
 
 Restrictions for ``MotionSequenceRequest``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
